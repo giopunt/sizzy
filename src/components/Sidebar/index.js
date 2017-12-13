@@ -16,7 +16,9 @@ import {
   Top,
   Label,
   ButtonText,
-  ToggleSidebar
+  ToggleSidebar,
+  Sponsored,
+  Bottom
 } from './styles';
 
 //components
@@ -54,7 +56,6 @@ class SidebarComponent extends Component {
     return (
       <ThemeProvider theme={{...theme, sidebarFullSize}}>
         <Sidebar>
-
           <ToggleSidebar
             title={sidebarFullSize ? 'Minimize' : 'Maximize'}
             onClick={toggleSidebar}
@@ -62,7 +63,6 @@ class SidebarComponent extends Component {
           />
 
           <Top>
-
             <Label> {sidebarFullSize ? 'Filter devices by OS' : 'OS'} </Label>
 
             <Filters>
@@ -82,9 +82,7 @@ class SidebarComponent extends Component {
               />
             </Filters>
 
-            <Label>
-              {sidebarFullSize ? 'Filter devices by type' : 'Type'}
-            </Label>
+            <Label>{sidebarFullSize ? 'Filter devices by type' : 'Type'}</Label>
 
             <Filters>
               <FilterIcon
@@ -110,7 +108,6 @@ class SidebarComponent extends Component {
             </Filters>
 
             <ToolbarButtons>
-
               <Label> Settings </Label>
 
               <ToolbarButton
@@ -119,11 +116,12 @@ class SidebarComponent extends Component {
                 onClick={app.settings.toggleShowSizes}
               >
                 <ButtonIcon name="television" />
-                {sidebarFullSize &&
+                {sidebarFullSize && (
                   <ButtonText>
                     {app.settings.showSizes ? 'Hide ' : 'Show '}
                     dimensions
-                  </ButtonText>}
+                  </ButtonText>
+                )}
               </ToolbarButton>
 
               <ToolbarButton
@@ -131,11 +129,12 @@ class SidebarComponent extends Component {
                 onClick={app.settings.toggleKeyboard}
               >
                 <ButtonIcon name="keyboard-o" />
-                {sidebarFullSize &&
+                {sidebarFullSize && (
                   <ButtonText>
                     {app.settings.showKeyboard ? 'Hide ' : 'Show '}
                     keyboard
-                  </ButtonText>}
+                  </ButtonText>
+                )}
               </ToolbarButton>
 
               <ToolbarButton
@@ -143,8 +142,9 @@ class SidebarComponent extends Component {
                 onClick={app.resetAllSettings}
               >
                 <ButtonIcon name="repeat" />
-                {sidebarFullSize &&
-                  <ButtonText> Reset all settings</ButtonText>}
+                {sidebarFullSize && (
+                  <ButtonText> Reset all settings</ButtonText>
+                )}
               </ToolbarButton>
 
               <ToolbarButton
@@ -152,42 +152,51 @@ class SidebarComponent extends Component {
                 onClick={app.settings.toggleOrientation}
               >
                 <ButtonIcon orientation={orientation} name="mobile" />
-                {sidebarFullSize &&
+                {sidebarFullSize && (
                   <ButtonText>
                     {' '}
-                    Switch to
-                    {' '}
-                    {app.settings.orientation === ORIENTATIONS.PORTRAIT
-                      ? ' landscape'
-                      : 'portrait'}
-                    {' '}
-                  </ButtonText>}
+                    Switch to{' '}
+                    {app.settings.orientation === ORIENTATIONS.PORTRAIT ? (
+                      ' landscape'
+                    ) : (
+                      'portrait'
+                    )}{' '}
+                  </ButtonText>
+                )}
               </ToolbarButton>
 
               <ToolbarButton title="Switch theme" onClick={app.switchTheme}>
                 <ButtonIcon name="paint-brush" />
                 {sidebarFullSize && <ButtonText> Switch theme </ButtonText>}
               </ToolbarButton>
-
             </ToolbarButtons>
 
             {!sidebarFullSize && <Label> Zoom </Label>}
-            {!sidebarFullSize &&
+            {!sidebarFullSize && (
               <ZoomController
                 fullSize={sidebarFullSize}
                 zoom={zoom}
                 setZoom={app.settings.setZoom}
-              />}
-
+              />
+            )}
           </Top>
 
-          {sidebarFullSize &&
-            <ZoomController
-              fullSize={sidebarFullSize}
-              zoom={zoom}
-              setZoom={app.settings.setZoom}
-            />}
+          {sidebarFullSize && (
+            <Bottom>
+              <Sponsored href="https://reactacademy.io" target="_blank">
+                <div>Sponsored by </div>
+                React Academy
+              </Sponsored>
 
+              {sidebarFullSize && (
+                <ZoomController
+                  fullSize={sidebarFullSize}
+                  zoom={zoom}
+                  setZoom={app.settings.setZoom}
+                />
+              )}
+            </Bottom>
+          )}
         </Sidebar>
       </ThemeProvider>
     );

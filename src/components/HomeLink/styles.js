@@ -5,10 +5,8 @@ import queries from 'styles/queries';
 const color = 'rgba(255,255,255, 0.8)';
 export const iconClassName = 'c-chrome-extension__icon';
 
-export const ChromeExtensionLink = styled.a`
-  ${flex.horizontal}
-  ${flex.centerHorizontalV}
-  opacity: 0.3;
+export const HomeLink = styled.a`
+  ${flex.horizontal} ${flex.centerHorizontalV} opacity: 0.3;
   transition: opacity 150ms linear;
   color: ${color};
   cursor: pointer;
@@ -17,16 +15,15 @@ export const ChromeExtensionLink = styled.a`
   border-radius: 4px;
   padding: 10px 13px;
   margin-top: 60px;
-  
+
   &:hover {
     opacity: 1;
-    
-    .${iconClassName}{
+
+    .${iconClassName} {
       transform: rotate(360deg);
     }
   }
-  
-  
+
   ${queries.notAvailable} {
     display: none;
   }

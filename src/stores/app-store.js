@@ -37,28 +37,30 @@ class AppStore {
   @observable sidebarFullSize: boolean = true;
   @observable deviceTypeFilters: Filters = new Filters();
   @observable osFilters: Filters = new Filters();
-  @observable devices: Array<Device> = map(
-    allDevices,
-    device => new Device(device)
-  );
+  @observable
+  devices: Array<Device> = map(allDevices, device => new Device(device));
   settings: Settings = new Settings(true);
 
   /* Actions */
 
-  @action toggleFocusDevice = (focusedDeviceId: ?string) => {
+  @action
+  toggleFocusDevice = (focusedDeviceId: ?string) => {
     this.focusedDeviceId = this.focusedDeviceId ? null : focusedDeviceId;
   };
 
-  @action setFocusedDevice = (focusedDeviceId: string) => {
+  @action
+  setFocusedDevice = (focusedDeviceId: string) => {
     this.focusedDeviceId = focusedDeviceId;
   };
 
   //update zoom/orientation values of all devices with the global settings
-  @action updateAllDevices = (settings: DeviceSettings) => {
+  @action
+  updateAllDevices = (settings: DeviceSettings) => {
     this.devices.forEach(device => device.settings.update(settings));
   };
 
-  @action resetAllSettings = () => {
+  @action
+  resetAllSettings = () => {
     this.themeIndex = 1;
     this.settings.reset();
     const currentSettings = this.settings.getValues();
@@ -66,11 +68,13 @@ class AppStore {
     this.focusedDeviceId = undefined;
   };
 
-  @action toggleSidebar = () => {
+  @action
+  toggleSidebar = () => {
     this.sidebarFullSize = !this.sidebarFullSize;
   };
 
-  @action navigateToDeviceInDirection = (direction: 'left' | 'right') => {
+  @action
+  navigateToDeviceInDirection = (direction: 'left' | 'right') => {
     const currentDeviceIndex = findIndex(this.devices, {
       id: this.focusedDeviceId
     });
@@ -78,13 +82,15 @@ class AppStore {
     let nextDeviceIndex = 0;
 
     if (direction === 'left') {
-      nextDeviceIndex = currentDeviceIndex === 0
-        ? this.devices.length - 1
-        : currentDeviceIndex - 1;
+      nextDeviceIndex =
+        currentDeviceIndex === 0
+          ? this.devices.length - 1
+          : currentDeviceIndex - 1;
     } else if (direction === 'right') {
-      nextDeviceIndex = currentDeviceIndex < this.devices.length - 1
-        ? currentDeviceIndex + 1
-        : 0;
+      nextDeviceIndex =
+        currentDeviceIndex < this.devices.length - 1
+          ? currentDeviceIndex + 1
+          : 0;
     }
 
     const nextDevice = this.devices[nextDeviceIndex];
@@ -94,21 +100,24 @@ class AppStore {
     }
   };
 
-  @action rotateCurrentDevice = () => {
+  @action
+  rotateCurrentDevice = () => {
     const currentDevice = this.getCurrentDevice();
     if (currentDevice) {
       currentDevice.settings.toggleOrientation();
     }
   };
 
-  @action toggleKeyboardOnDevice = () => {
+  @action
+  toggleKeyboardOnDevice = () => {
     const currentDevice = this.getCurrentDevice();
     if (currentDevice) {
       currentDevice.settings.toggleKeyboard();
     }
   };
 
-  @action onKeyPress = (key: string) => {
+  @action
+  onKeyPress = (key: string) => {
     if (this.focusedDeviceId) {
       if (key === KEYS.ARROW_LEFT) {
         this.navigateToDeviceInDirection('left');
@@ -126,11 +135,13 @@ class AppStore {
     }
   };
 
-  @action clearFocusedDevice = () => {
+  @action
+  clearFocusedDevice = () => {
     this.focusedDeviceId = null;
   };
 
-  @action toggleFocusedMode = () => {
+  @action
+  toggleFocusedMode = () => {
     if (this.focusedDeviceId) {
       this.clearFocusedDevice();
     } else {
@@ -143,7 +154,8 @@ class AppStore {
 
   @action setUrl = (url: string) => (this.url = url);
 
-  @action setUrltoLoad = (
+  @action
+  setUrltoLoad = (
     urlToLoad: string,
     redirectOnProtocolChange: boolean = false,
     insertIntoUrl: boolean = false
@@ -187,7 +199,8 @@ class AppStore {
     }
   };
 
-  @action showLoadingAnimation = () => {
+  @action
+  showLoadingAnimation = () => {
     this.loading = true;
     this.showWelcomeContent = false;
 
@@ -196,18 +209,21 @@ class AppStore {
     }, LOADING_TIME_MS);
   };
 
-  @action loadCurrentUrl = () => {
+  @action
+  loadCurrentUrl = () => {
     this.setUrltoLoad(this.url, true, true);
   };
 
   //cycle through themes
-  @action switchTheme = () => {
+  @action
+  switchTheme = () => {
     const themeKeys = Object.keys(themes);
     let newThemeIndex = this.themeIndex + 1;
     this.themeIndex = newThemeIndex >= themeKeys.length ? 0 : newThemeIndex;
   };
 
-  @action resetToHome = () => {
+  @action
+  resetToHome = () => {
     if (window.isElectron) {
       this.urlToLoad = null;
       this.url = '';
@@ -218,15 +234,17 @@ class AppStore {
     }
   };
 
-  @action loadExampleUrl = () => {
+  @action
+  loadExampleUrl = () => {
     const exampleUrl = `${window.isElectron
       ? 'http:'
-      : window.location.protocol}//kitze.io`;
+      : window.location.protocol}//reactacademy.io`;
     this.setUrl(exampleUrl);
     this.setUrltoLoad(exampleUrl, false, true);
   };
 
-  @action onDevicesSpaceMeasure = ({height}: MeasureObject) => {
+  @action
+  onDevicesSpaceMeasure = ({height}: MeasureObject) => {
     this.devicesSpaceHeight = height;
   };
 

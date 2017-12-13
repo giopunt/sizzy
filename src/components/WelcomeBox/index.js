@@ -17,7 +17,8 @@ import {
   ShapesWrap,
   MadeBy,
   MobileText,
-  OnlyAvailable
+  OnlyAvailable,
+  Links
 } from './styles';
 import {ThemeProvider} from 'styled-components';
 
@@ -25,7 +26,7 @@ import {ThemeProvider} from 'styled-components';
 import {UrlInputStyles} from './styles';
 
 //components
-import ChromeExtensionLink from 'components/ChromeExtensionLink';
+import HomeLink from 'components/HomeLink';
 
 //img
 import LetterSvg from 'img/S.svg';
@@ -51,7 +52,6 @@ class WelcomeBoxComponent extends Component {
 
     return (
       <WelcomeBox>
-
         <LetterAndShapes loading={loading}>
           <Letter loading={loading} src={LetterSvg} />
           <ShapesWrap loading={loading}>
@@ -60,7 +60,6 @@ class WelcomeBoxComponent extends Component {
         </LetterAndShapes>
 
         <Content show={showWelcomeContent}>
-
           <IntroText> Welcome to Sizzy! Enter an url to start: </IntroText>
 
           <MobileText>
@@ -68,9 +67,7 @@ class WelcomeBoxComponent extends Component {
             at once.
           </MobileText>
 
-          <OnlyAvailable>
-            It's only available on large devices 😞
-          </OnlyAvailable>
+          <OnlyAvailable>It's only available on large devices 😞</OnlyAvailable>
 
           <ThemeProvider theme={themes.dark}>
             <UrlBar styles={UrlInputStyles} />
@@ -80,14 +77,29 @@ class WelcomeBoxComponent extends Component {
             Click here to load an example!
           </ExampleLink>
 
-          {!window.isElectron && <ChromeExtensionLink />}
+          {!window.isElectron && (
+            <Links>
+              <HomeLink
+                link="https://chrome.google.com/webstore/detail/sizzy/nfhlbmjiiogoelaflfclodlkncbdiefo"
+                icon="chrome"
+                text="Download Chrome Extension"
+              />
+              <HomeLink
+                link="https://reactacademy.io"
+                icon="book"
+                style={{marginLeft: 15}}
+                text="Learn with React Academy"
+              />
+            </Links>
+          )}
         </Content>
 
         {!loading &&
-          !window.isElectron &&
+        !window.isElectron && (
           <MadeBy target="_blank" href="https://kitze.io">
             made by @thekitze
-          </MadeBy>}
+          </MadeBy>
+        )}
       </WelcomeBox>
     );
   }
