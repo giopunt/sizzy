@@ -1,3 +1,12 @@
+### 🙋‍♂️ Made by [@thekitze](https://twitter.com/thekitze)  
+
+### Other projects:
+- 🏫 [React Academy](https://reactacademy.io) - Interactive React and GraphQL workshops
+- 💌 [Twizzy](https://twizzy.app) - A standalone app for Twitter DM
+- 🤖 [JSUI](https://github.com/kitze/JSUI) - A powerful UI toolkit for managing JavaScript apps
+
+---
+
 <p align="center">
 <img src="http://i.imgur.com/DmmJV3Z.png" alt="Sizzy" width="200"/>
 </p>
