@@ -24,6 +24,7 @@ import {
 //components
 import FilterIcon from 'components/FilterIcon';
 import ZoomController from 'components/ZoomController';
+import TwizzyLogo from 'components/TwizzyLogo';
 
 type Props = {
   store: any | store,
@@ -63,20 +64,24 @@ class SidebarComponent extends Component {
           />
 
           <Top>
+            {sidebarFullSize && <TwizzyLogo />}
+
             <Label> {sidebarFullSize ? 'Filter devices by OS' : 'OS'} </Label>
 
             <Filters>
               <FilterIcon
                 title="Toggle Apple devices"
                 toggleFilterfn={() =>
-                  osFilters.toggleFilter(OS.APPLE, filterTypes.OS)}
+                  osFilters.toggleFilter(OS.APPLE, filterTypes.OS)
+                }
                 selected={osFilters.contains(OS.APPLE)}
                 icon="apple"
               />
               <FilterIcon
                 title="Toggle Android devices"
                 toggleFilterfn={() =>
-                  osFilters.toggleFilter(OS.ANDROID, filterTypes.OS)}
+                  osFilters.toggleFilter(OS.ANDROID, filterTypes.OS)
+                }
                 selected={osFilters.contains(OS.ANDROID)}
                 icon="android"
               />
@@ -91,7 +96,8 @@ class SidebarComponent extends Component {
                   deviceTypeFilters.toggleFilter(
                     DEVICE_TYPES.PHONE,
                     filterTypes.DEVICE_TYPE
-                  )}
+                  )
+                }
                 selected={deviceTypeFilters.contains(DEVICE_TYPES.PHONE)}
                 icon="mobile"
               />
@@ -101,7 +107,8 @@ class SidebarComponent extends Component {
                   deviceTypeFilters.toggleFilter(
                     DEVICE_TYPES.TABLET,
                     filterTypes.DEVICE_TYPE
-                  )}
+                  )
+                }
                 selected={deviceTypeFilters.contains(DEVICE_TYPES.TABLET)}
                 icon="tablet"
               />
@@ -156,11 +163,9 @@ class SidebarComponent extends Component {
                   <ButtonText>
                     {' '}
                     Switch to{' '}
-                    {app.settings.orientation === ORIENTATIONS.PORTRAIT ? (
-                      ' landscape'
-                    ) : (
-                      'portrait'
-                    )}{' '}
+                    {app.settings.orientation === ORIENTATIONS.PORTRAIT
+                      ? ' landscape'
+                      : 'portrait'}{' '}
                   </ButtonText>
                 )}
               </ToolbarButton>
