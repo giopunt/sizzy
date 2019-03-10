@@ -67,7 +67,12 @@ class WelcomeBoxComponent extends Component {
             at once.
           </MobileText>
 
-          <OnlyAvailable>It's only available on large devices 😞</OnlyAvailable>
+          <OnlyAvailable>
+            It's only available on large devices{' '}
+            <span role="img" aria-label="Sadface">
+              😞
+            </span>
+          </OnlyAvailable>
 
           <ThemeProvider theme={themes.dark}>
             <UrlBar styles={UrlInputStyles} />
@@ -94,8 +99,7 @@ class WelcomeBoxComponent extends Component {
           )}
         </Content>
 
-        {!loading &&
-        !window.isElectron && (
+        {!loading && !window.isElectron && (
           <MadeBy target="_blank" href="https://kitze.io">
             made by @thekitze
           </MadeBy>
