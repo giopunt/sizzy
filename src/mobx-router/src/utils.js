@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 export const isObject = obj =>
   obj && typeof obj === 'object' && !Array.isArray(obj);
 export const getObjectKeys = obj => (isObject(obj) ? Object.keys(obj) : []);
