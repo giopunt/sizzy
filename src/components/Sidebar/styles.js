@@ -24,10 +24,12 @@ export const Sidebar = styled.div`
 
 export const Filters = styled.div`
   ${p => (p.theme.sidebarFullSize ? flex.horizontal : flex.vertical)} ${p =>
-      p.theme.sidebarFullSize ? flex.centerHorizontalV : flex.centerHorizontal};
+    p.theme.sidebarFullSize ? flex.centerHorizontalV : flex.centerHorizontal};
 `;
 
-export const Top = styled.div`${flex.vertical};`;
+export const Top = styled.div`
+  ${flex.vertical};
+`;
 
 export const Label = styled.div`
   ${noSelect} font-size: ${p => (p.theme.sidebarFullSize ? 13 : 11)}px;
@@ -35,17 +37,51 @@ export const Label = styled.div`
   ${p => cond(!p.theme.sidebarFullSize, `text-align: center;`)} margin: 15px 0;
 `;
 
-export const ToolbarButtons = styled.div`${flex.vertical} width: 100%;`;
+export const ToolbarButtons = styled.div`
+  ${flex.vertical} width: 100%;
+`;
+
+export const RecentlyVisited = styled.div`
+  ${flex.vertical} width: 100%;
+`;
+
+export const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+export const ListItem = styled.li`
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 3px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const BookmarkLink = styled.a`
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 13px;
+
+  &:hover {
+    text-decoration: underline;
+    &:hover {
+      background-color: #1d2027;
+    }
+  }
+`;
 
 /* Button */
 export const ToolbarButton = styled.div`
   ${flex.horizontal} ${p =>
-      p.theme.sidebarFullSize
-        ? flex.centerHorizontalV
-        : flex.centerHorizontal} ${p =>
-      p.theme.sidebarFullSize
-        ? `margin-right: 10px;`
-        : `margin-bottom: 7px;`} ${noSelect} min-width: 40px;
+  p.theme.sidebarFullSize
+    ? flex.centerHorizontalV
+    : flex.centerHorizontal} ${p =>
+  p.theme.sidebarFullSize
+    ? `margin-right: 10px;`
+    : `margin-bottom: 7px;`} ${noSelect} min-width: 40px;
   cursor: ${p => (p.disabled ? 'not-allowed' : 'pointer')};
   font-size: 13px;
   border-radius: 3px;
@@ -68,7 +104,7 @@ export const ButtonIcon = styled($Icon)`
   font-size: 18px !important;
   transition: ${colorTransition};
   ${rotateIconOnOrientationChange} ${p =>
-      cond(p.theme.sidebarFullSize, `margin-right: 8px;`)} min-width: 25px;
+    cond(p.theme.sidebarFullSize, `margin-right: 8px;`)} min-width: 25px;
   opacity: 0.7;
 `;
 
@@ -97,7 +133,9 @@ export const ToggleSidebar = styled($Icon)`
   }
 `;
 
-export const Bottom = styled.div`${flex.vertical};`;
+export const Bottom = styled.div`
+  ${flex.vertical};
+`;
 
 export const Sponsored = styled.a`
   text-decoration: none;

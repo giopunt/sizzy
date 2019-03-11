@@ -8,17 +8,21 @@ import ORIENTATIONS from 'config/orientations';
 
 //styled-components
 import {
-  Sidebar,
-  Filters,
+  BookmarkLink,
+  Bottom,
   ButtonIcon,
+  ButtonText,
+  Filters,
+  Label,
+  List,
+  ListItem,
+  RecentlyVisited,
+  Sidebar,
+  Sponsored,
+  ToggleSidebar,
   ToolbarButton,
   ToolbarButtons,
-  Top,
-  Label,
-  ButtonText,
-  ToggleSidebar,
-  Sponsored,
-  Bottom
+  Top
 } from './styles';
 
 //components
@@ -45,10 +49,11 @@ class SidebarComponent extends Component {
     const {store, theme} = this.props;
     const {app} = store;
     const {
-      osFilters,
+      bookmarks,
       deviceTypeFilters,
-      sidebarFullSize,
+      osFilters,
       settings,
+      sidebarFullSize,
       toggleSidebar
     } = app;
     const {zoom, orientation} = settings;
@@ -175,6 +180,29 @@ class SidebarComponent extends Component {
                 {sidebarFullSize && <ButtonText> Switch theme </ButtonText>}
               </ToolbarButton>
             </ToolbarButtons>
+
+            {sidebarFullSize && <Label>Recently visited</Label>}
+            {sidebarFullSize && (
+              <RecentlyVisited>
+                <List>
+                  {bookmarks.map(bookmarkUrl => (
+                    <ListItem>
+                      <BookmarkLink
+                        key={bookmarkUrl}
+                        title={bookmarkUrl}
+                        onClick={e => {
+                          e.preventDefault();
+                          app.url = bookmarkUrl;
+                          app.loadCurrentUrl();
+                        }}
+                      >
+                        {bookmarkUrl}
+                      </BookmarkLink>
+                    </ListItem>
+                  ))}
+                </List>
+              </RecentlyVisited>
+            )}
 
             {!sidebarFullSize && <Label> Zoom </Label>}
             {!sidebarFullSize && (

@@ -3,6 +3,7 @@ import type {DeviceSettings, MeasureObject} from 'config/types';
 import {observable, action, computed} from 'mobx';
 import {isWebUri} from 'valid-url';
 import {isUrlSameProtocol, getOppositeProtocol} from 'utils/url-utils';
+import {saveBookmark, loadBookmarks} from 'utils/storage-utils';
 import allDevices from 'config/devices';
 import store from 'stores/store';
 import views from 'config/views';
@@ -40,6 +41,7 @@ class AppStore {
   @observable
   devices: Array<Device> = map(allDevices, device => new Device(device));
   settings: Settings = new Settings(true);
+  @observable bookmarks: Array<string> = loadBookmarks();
 
   /* Actions */
 
@@ -169,9 +171,9 @@ class AppStore {
 
       //if invalid url (doesn't have protcol), try to append current protocol
       if (!isWebUri(urlToLoad)) {
-        const urlWithProtocol = `${window.isElectron
-          ? 'http:'
-          : protocol}//${urlToLoad}`;
+        const urlWithProtocol = `${
+          window.isElectron ? 'http:' : protocol
+        }//${urlToLoad}`;
         urlToLoad = urlWithProtocol;
       }
 
@@ -196,6 +198,9 @@ class AppStore {
       if (insertIntoUrl && !window.isElectron) {
         store.router.goTo(views.home, {}, store, {url: this.urlToLoad});
       }
+
+      saveBookmark(this.url);
+      this.bookmarks = loadBookmarks();
     }
   };
 
@@ -236,9 +241,9 @@ class AppStore {
 
   @action
   loadExampleUrl = () => {
-    const exampleUrl = `${window.isElectron
-      ? 'http:'
-      : window.location.protocol}//reactacademy.io`;
+    const exampleUrl = `${
+      window.isElectron ? 'http:' : window.location.protocol
+    }//reactacademy.io`;
     this.setUrl(exampleUrl);
     this.setUrltoLoad(exampleUrl, false, true);
   };
