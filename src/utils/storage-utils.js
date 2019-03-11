@@ -37,9 +37,8 @@ const get = key => {
 export const saveBookmark = url => {
   const bookmarks = loadBookmarks();
   if (!bookmarks.includes(url)) {
-    bookmarks = bookmarks.slice(0,2);
     bookmarks.unshift(url);
-    save(LOCAL_STORAGE_BOOKMARKS_KEY, JSON.stringify(bookmarks));
+    save(LOCAL_STORAGE_BOOKMARKS_KEY, JSON.stringify(bookmarks.slice(0, 2)));
   }
 };
 
